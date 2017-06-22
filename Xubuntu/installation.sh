@@ -1,5 +1,5 @@
 # requirements:
-# sudo apt-get install git
+# sudo apt-get -y install git
 # git config --global user.email ""
 # git config --global user.name ""
 # git clone https://github.com/FHellmann/Tools.git
@@ -10,15 +10,15 @@
 apt-get update 
 
 # hyper-v settings
-apt-get install hv-kvp-daemon-init linux-tools-virtual linux-cloud-tools-virtual
+apt-get -y install hv-kvp-daemon-init linux-tools-virtual linux-cloud-tools-virtual
 
 # remote desktop connection
-apt-get install ubuntu-desktop xrdp
+apt-get -y install ubuntu-desktop xrdp
 echo xfce4-session > ~/.xsession
 service xrdp restart
 
 # java / eclipse / c++
-apt-get install default-jre eclipse eclipse-cdt g++
+apt-get -y install default-jre eclipse eclipse-cdt g++
 echo "
 [Desktop Entry]
 Name=Eclipse 
@@ -37,9 +37,9 @@ wget -O /tmp/${CUDA_REPO_PKG} http://developer.download.nvidia.com/compute/cuda/
 dpkg -i /tmp/${CUDA_REPO_PKG}
 rm -f /tmp/${CUDA_REPO_PKG}
 apt-get update
-apt-get install cuda-drivers
+apt-get -y install cuda-drivers
 
-apt-get install nvidia-cuda-dev nvidia-cuda-toolkit nvidia-nsight
+apt-get -y install nvidia-cuda-dev nvidia-cuda-toolkit nvidia-nsight
 echo "
 [Desktop Entry]
 Name=Nsight 
@@ -54,7 +54,7 @@ Name[en]=Nsight
 " > /usr/share/applications/nsight.desktop
 
 # GPU Computing SDK
-apt-get install build-essential freeglut3-dev libgl1-mesa-glx libglu1-mesa-dev libx11-dev libxi-dev libxmu-dev 
+apt-get -y install build-essential freeglut3-dev libgl1-mesa-glx libglu1-mesa-dev libx11-dev libxi-dev libxmu-dev 
 
 # update everything
 apt-get update
