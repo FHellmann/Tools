@@ -1,5 +1,7 @@
 # requirements:
 # sudo apt-get install git
+# git config --global user.email ""
+# git config --global user.name ""
 # git clone https://github.com/FHellmann/Tools.git
 # sudo chmod -x /Tools/Xubuntu/installation.sh
 # sudo /Tools/Xubuntu/installation.sh > ~/install.log
