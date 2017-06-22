@@ -3,14 +3,15 @@
 # git config --global user.email ""
 # git config --global user.name ""
 # git clone https://github.com/FHellmann/Tools.git
-# sudo chmod -x /Tools/Xubuntu/installation.sh
-# sudo /Tools/Xubuntu/installation.sh > ~/install.log
+# sudo chmod +x /Tools/Xubuntu/installation.sh
+# sudo ./Tools/Xubuntu/installation.sh > ~/install.log
 
 # update everything
 apt-get update 
 
 # hyper-v settings
-apt-get -y install hv-kvp-daemon-init linux-tools-virtual linux-cloud-tools-virtual
+apt-get -y install linux-tools-virtual-lts-xenial linux-cloud-tools-virtual-lts-xenial
+#apt-get -y install linux-virtual-lts-xenial
 
 # remote desktop connection
 apt-get -y install ubuntu-desktop xrdp
