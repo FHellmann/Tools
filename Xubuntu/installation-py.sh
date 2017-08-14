@@ -19,17 +19,35 @@ echo xfce4-session > ~/.xsession
 service xrdp restart
 
 # install python
-apt-get -y install python3
-apt-get -y install python3-doc
+apt-get -y install python3-dev python3-pip
+-H pip install -U pip numpy scipy matplotlib scikit-image scikit-learn ipython ipython-notebook pandas sympy nose
 
+# install dlib
+wget http://dlib.net/files/dlib-19.4.tar.bz2
+tar xvf dlib-19.4.tar.bz2
+cd dlib-19.4/
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
+sudo make install
+sudo ldconfig
+cd ..
+
+pkg-config --libs --cflags dlib-1
+
+pip install dlib
+
+python setup.py install
+rm -rf dist
+rm -rf tool/python/build
+rm python examples/dlib.so
+cd ..
 
 # install IDE from Intellij PyCharm
 add-apt-repository ppa:mystic-mirage/pycharm
 apt-get update
 apt-get -y install pycharm
-
-# install libraries for python
-apt-get -y install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 
 # update everything
 apt-get update
