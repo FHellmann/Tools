@@ -27,74 +27,47 @@ apt-get -y install python3-dev python3-pip
 
 # install dlib
 echo "Install dlib"
-wget http://dlib.net/files/dlib-19.4.tar.bz2
-tar xvf dlib-19.4.tar.bz2
-cd dlib-19.4/
-mkdir build
-cd build
-cmake ..
-cmake --build . --config Release
-sudo make install
-sudo ldconfig
-cd ..
-
-pkg-config --libs --cflags dlib-1
-
-pip install dlib
-
-python setup.py install
-rm -rf dist
-rm -rf tool/python/build
-rm python examples/dlib.so
-cd ..
-
-rm dlib-19.4.tar.bz2
+apt-get -y install build-essential cmake
+apt-get -y install libgtk-3-dev
+apt-get -y install libboost-all-dev
+-H pip install -U dlib
 
 # install IDE from Intellij PyCharm
 echo "Install IDE Intellij PyCharm"
-wget https://download.jetbrains.com/python/pycharm-community-2017.2.1.tar.gz
-tar xvf pycharm-community-2017.2.1.tar.gz
-cd pycharm-community-2017.2.1
-chmod -x /bin/pycharm.sh
-cd ..
-mv pycharm-community-2017.2.1 /usr/lib/pycharm-community-2017.2.1
-echo sudo /usr/lib/pycharm-community-2017.2.1/bin/pycharm.sh > pycharm.sh
-chmod -x /usr/lib/pycharm-community-2017.2.1/bin/pycharm.sh
-chmod -x pycharm.sh
-
-rm pycharm-community-2017.2.1.tar.gz
+add-apt-repository ppa:mystic-mirage/pycharm
+apt-get update
 
 # install OpenCV dependencies
 echo "Install OpenCV"
-sudo apt-get update
-sudo apt-get upgrade -y
+apt-get update
+apt-get -y upgrade
 
-sudo apt-get install build-essential -y
-sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev -y
+apt-get -y install build-essential
+apt-get -y install cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 
-sudo apt-get install python-tk libqt4-dev libqt4-opengl-dev  libeigen3-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common texlive-latex-extra libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev default-jdk ant -y
+apt-get -y install python-tk libqt4-dev libqt4-opengl-dev  libeigen3-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common texlive-latex-extra libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev default-jdk ant
 
 
 echo "GUI and openGL extensions"
-sudo apt-get install qt4-default libqt4-opengl-dev libvtk5-qt4-dev libgtk2.0-dev libgtkglext1 libgtkglext1-dev -y
+apt-get -y install qt4-default libqt4-opengl-dev libvtk5-qt4-dev libgtk2.0-dev libgtkglext1 libgtkglext1-dev
 
 echo "image manipulation libraries"
-sudo apt-get install libpng3 pngtools libpng12-dev libpng12-0 libpng++-dev -y
-sudo apt-get install libjpeg-dev libjpeg9 libjpeg9-dbg libjpeg-progs libtiff5-dev libtiff5 libtiffxx5 libtiff-tools libjasper-dev libjasper1  libjasper-runtime zlib1g zlib1g-dbg zlib1g-dev -y
+apt-get -y install libpng3 pngtools libpng12-dev libpng12-0 libpng++-dev
+apt-get -y install libjpeg-dev libjpeg9 libjpeg9-dbg libjpeg-progs libtiff5-dev libtiff5 libtiffxx5 libtiff-tools libjasper-dev libjasper1  libjasper-runtime zlib1g zlib1g-dbg zlib1g-dev
 
 echo "video manipulation libraries"
-sudo apt-get install libavformat-dev libavutil-ffmpeg54 libavutil-dev libxine2-dev libxine2 libswscale-dev libswscale-ffmpeg3 libdc1394-22 libdc1394-22-dev libdc1394-utils -y
+apt-get -y install libavformat-dev libavutil-ffmpeg54 libavutil-dev libxine2-dev libxine2 libswscale-dev libswscale-ffmpeg3 libdc1394-22 libdc1394-22-dev libdc1394-utils
 
 echo "codecs"
-sudo apt-get install libavcodec-dev -y
-sudo apt-get install libfaac-dev libmp3lame-dev -y
-sudo apt-get install libopencore-amrnb-dev libopencore-amrwb-dev -y
-sudo apt-get install libtheora-dev libvorbis-dev libxvidcore-dev -y
-sudo apt-get install ffmpeg x264 libx264-dev -y
-sudo apt-get install libv4l-0 libv4l v4l-utils -y
+apt-get -y install libavcodec-dev
+apt-get -y install libfaac-dev libmp3lame-dev
+apt-get -y install libopencore-amrnb-dev libopencore-amrwb-dev
+apt-get -y install libtheora-dev libvorbis-dev libxvidcore-dev
+apt-get -y install ffmpeg x264 libx264-dev
+apt-get -y install libv4l-0 libv4l v4l-utils
 
 echo "multiproccessing library"
-sudo apt-get install libtbb-dev -y
+apt-get -y install libtbb-dev
 
 echo "finally download and install opencv"
 mkdir opencv
