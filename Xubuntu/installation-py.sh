@@ -42,21 +42,13 @@ apt-get update
 apt-get upgrade
 apt-get -y install build-essential cmake pkg-config
 
-## dlib
-apt-get update
-apt-get upgrade
-echo "Install dlib"
-apt-get -y install libgtk-3-dev
-apt-get -y install libboost-all-dev
--H pip install -U dlib
-
 ## OpenCV (https://www.learnopencv.com/install-opencv3-on-ubuntu/)
 echo "Install OpenCV"
 CV_VERSION=3.3.0
 
 apt-get update
 apt-get upgrade
-apt-get remove x264 libx264-dev
+apt-get -y remove x264 libx264-dev
 apt-get -y install build-essential checkinstall cmake pkg-config yasm gfortran git
 apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
 apt-get -y install libtiff5-dev
@@ -75,26 +67,14 @@ apt-get -y install libgoogle-glog-dev libgflags-dev
 apt-get -y install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
 
 cd ~
-git clone https://github.com/opencv/opencv.git
-cd opencv
-git checkout ${CV_VERSION}
+mkdir OpenCV-tmp
+cd OpenCV-tmp
+git clone https://github.com/Itseez/opencv.git
 mkdir build
 cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-      -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D INSTALL_C_EXAMPLES=ON \
-      -D INSTALL_PYTHON_EXAMPLES=ON \
-      -D WITH_TBB=ON \
-      -D WITH_V4L=ON \
-      -D WITH_QT=ON \
-      -D WITH_OPENGL=ON \
-      -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
-      -D BUILD_EXAMPLES=ON ..
-nproc
-make -j4
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ../opencv
+make -j $(nproc --all)
 make install
-sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
-ldconfig
 
 ## Dlib (https://www.learnopencv.com/install-dlib-on-ubuntu/)
 echo "Install Dlib"
@@ -119,6 +99,9 @@ rm -rf dist
 rm -rf tool/python/build
 rm python_examples/dlib.so
 pip install dlib
+
+## Face Recognition (https://github.com/ageitgey/face_recognition)
+pip install face_recognition
 
 # update everything
 apt-get update
