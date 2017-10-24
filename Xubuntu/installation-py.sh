@@ -7,81 +7,113 @@
 # sudo ./Tools/Xubuntu/installation-py.sh > ~/install-py.log
 
 # hyper-v settings
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 echo "Install hyper-v settings"
 apt-get -y install linux-tools-virtual-lts-xenial linux-cloud-tools-virtual-lts-xenial
 
 # remote desktop connection
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 echo "Install rdp feature"
 apt-get -y install ubuntu-desktop xrdp
 echo xfce4-session > ~/.xsession
 service xrdp restart
 
 # Install programming languages
-## python 3
-apt-get update
-apt-get upgrade
-echo "Install python 3"
-apt-get -y install python3-dev python3-pip
+## python 2
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
+echo "Install python 2"
+apt-get -y install python python-dev python-pip
 -H pip install -U pip numpy scipy matplotlib scikit-image scikit-learn ipython ipython-notebook pandas sympy nose
 
 # Install IDEs
 
 ## Intellij PyCharm
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 echo "Install IDE Intellij PyCharm"
 add-apt-repository ppa:mystic-mirage/pycharm
-apt-get update
 
 # Install Libraries
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 apt-get -y install build-essential cmake pkg-config
 
-## OpenCV (https://www.learnopencv.com/install-opencv3-on-ubuntu/)
+## OpenCV
 echo "Install OpenCV"
 CV_VERSION=3.3.0
 
-apt-get update
-apt-get upgrade
-apt-get -y remove x264 libx264-dev
-apt-get -y install build-essential checkinstall cmake pkg-config yasm gfortran git
-apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
-apt-get -y install libtiff5-dev
-apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev
-apt-get -y install libxine2-dev libv4l-dev
-apt-get -y install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
-apt-get -y install libqt4-dev libgtk2.0-dev libtbb-dev
-apt-get -y install libatlas-base-dev
-apt-get -y install libfaac-dev libmp3lame-dev libtheora-dev
-apt-get -y install libvorbis-dev libxvidcore-dev
-apt-get -y install libopencore-amrnb-dev libopencore-amrwb-dev
-apt-get -y install x264 v4l-utils
-# optional dependencies
-apt-get -y install libprotobuf-dev protobuf-compiler
-apt-get -y install libgoogle-glog-dev libgflags-dev
-apt-get -y install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
+# KEEP UBUNTU OR DEBIAN UP TO DATE
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 
-cd ~
-mkdir OpenCV-tmp
-cd OpenCV-tmp
-git clone https://github.com/Itseez/opencv.git
+
+# INSTALL THE DEPENDENCIES
+
+# Build tools:
+apt-get install -y build-essential cmake
+
+# GUI (if you want to use GTK instead of Qt, replace 'qt5-default' with 'libgtkglext1-dev' and remove '-DWITH_QT=ON' option in CMake):
+apt-get install -y qt5-default libvtk6-dev
+
+# Media I/O:
+apt-get install -y zlib1g-dev libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev libopenexr-dev libgdal-dev
+
+# Video I/O:
+apt-get install -y libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev yasm libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev
+
+# Parallelism and linear algebra libraries:
+apt-get install -y libtbb-dev libeigen3-dev
+
+# Python:
+apt-get install -y python3-dev python3-tk python3-numpy
+
+# Java:
+apt-get install -y ant default-jdk
+
+# Documentation:
+apt-get install -y doxygen
+
+
+# INSTALL THE LIBRARY
+
+apt-get install -y unzip wget
+wget https://github.com/opencv/opencv/archive/${CV_VERSION}.zip
+unzip ${CV_VERSION}.zip
+rm ${CV_VERSION}.zip
+mv opencv-${CV_VERSION} OpenCV
+cd OpenCV
 mkdir build
 cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ../opencv
-make -j $(nproc --all)
+cmake -DWITH_IPP=ON -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
+make -j4
 make install
+ldconfig
+
+pip install opencv-python
 
 ## Dlib (https://www.learnopencv.com/install-dlib-on-ubuntu/)
 echo "Install Dlib"
 DLIB_VERSION=19.7
 
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 cd ~
 wget http://dlib.net/files/dlib-${DLIB_VERSION}.tar.bz2
 tar xvf dlib-${DLIB_VERSION}.tar.bz2
@@ -104,7 +136,9 @@ pip install dlib
 pip install face_recognition
 
 # update everything
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
 
 echo "Congratulations! Finished installation!"
