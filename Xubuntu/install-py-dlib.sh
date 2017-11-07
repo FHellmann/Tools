@@ -3,9 +3,12 @@ DLIB_VERSION=19.7
 
 apt-get update
 apt-get upgrade
+apt-get install -y build-essential cmake
+pip install boost
 cd ~
 wget http://dlib.net/files/dlib-${DLIB_VERSION}.tar.bz2
 tar xvf dlib-${DLIB_VERSION}.tar.bz2
+rm -r dlib-${DLIB_VERSION}.tar.bz2
 cd dlib-${DLIB_VERSION}/
 mkdir build
 cd build
