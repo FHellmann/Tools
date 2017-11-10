@@ -9,15 +9,6 @@
 # update everything
 apt-get update 
 
-# hyper-v settings
-apt-get -y install linux-tools-virtual-lts-xenial linux-cloud-tools-virtual-lts-xenial
-#apt-get -y install linux-virtual-lts-xenial
-
-# remote desktop connection
-apt-get -y install ubuntu-desktop xrdp
-echo xfce4-session > ~/.xsession
-service xrdp restart
-
 # java / eclipse / c++
 apt-get -y install default-jre eclipse eclipse-cdt g++
 echo "
